@@ -8,23 +8,23 @@ function Nav() {
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossOrigin="anonymous"></script>
             <nav className="navbar navbar-inverse navbar-expand-lg navbar-dark bg-info">
                 <div className="container-fluid">
-                    <a className="navbar-brand" href="#"><strong><i>QueueAutomation </i></strong></a>
+                    <a className="navbar-brand" href="/"><strong><i>QueueAutomation </i></strong></a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse navbar-header" id="navbarNavDropdown">
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <a className="nav-link active" aria-current="page" href="#">Home</a>
+                                <a className="nav-link active" aria-current="page" href="/">Home</a>
                             </li>
-                            <li className="nav-item">
+                            {/* <li className="nav-item">
                                 <a className="nav-link active" href="#">about</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link active" href="#">Moto</a>
-                            </li>
+                            </li> */}
                             <li className="nav-item">
-                                <a className="nav-link active"  href="#">Create Queue</a>
+                                <a className="nav-link active"  href="/queue">Create Queue</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link active"  href="/registration">Add candidate</a>

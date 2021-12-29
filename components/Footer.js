@@ -86,7 +86,6 @@ export default function Footer() {
 
                 </div>
                 {/* <!-- Footer Links --> */}
-               
 
                 {/* <!-- Copyright --> */}
                 <div className="footer-copyright text-center py-3">

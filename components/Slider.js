@@ -25,7 +25,7 @@ export default function Slider() {
                                 </div>
                         </div>
                         <div className="carousel-item">
-                            <img className="d-block w-100" src="https://image3.mouthshut.com/images/Restaurant/Photo/-12420_144534.jpg" alt="Second slide"/>
+                            <img className="d-block w-100 img-fluid" src="https://image3.mouthshut.com/images/Restaurant/Photo/-12420_144534.jpg" alt="Second slide"/>
                         </div>
                         <div className="carousel-item">
                             <img className="d-block w-100" src="https://image3.mouthshut.com/images/Restaurant/Photo/-96430_144536.jpg" alt="Third slide"/>
