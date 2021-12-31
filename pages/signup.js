@@ -3,12 +3,20 @@ import Nav from '../components/Nav'
 import { useState } from 'react'
 import { useRouter } from 'next/router';
 import Cookies from "js-cookie";
+import { useEffect } from 'react';
 
 
-export default function signup() {
-
+export default function signup({token}) {
     const router = useRouter();
 
+    const redir = ()=>{
+        router.replace('/');
+    }
+    useEffect(()=>{
+        if(token != "") 
+            redir();
+    },[]);
+    
 
     const [fname , setFname] = useState("");
     const [lname , setLname] = useState("");
@@ -32,7 +40,7 @@ export default function signup() {
     const handleNum = (event)=>{
         setNum(event.target.value);
     }
-
+   
     const register = async(event)=>{
         event.preventDefault();
 
@@ -116,4 +124,12 @@ export default function signup() {
             </form>
         </div>
     )
+}
+
+
+export function getServerSideProps({ req , res }){
+    if(req.cookies.user != undefined){
+        return { props : { token : req.cookies.user } };
+    }
+    return { props : {token : ""} };
 }
