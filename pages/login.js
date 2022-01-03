@@ -22,7 +22,7 @@ export default function login({token}) {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                  },
+                },
             })
             .then(async(result)=>{
                 await result.json()

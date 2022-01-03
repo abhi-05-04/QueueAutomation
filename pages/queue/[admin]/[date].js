@@ -20,7 +20,7 @@ export default function registration({props}) {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                  },
+                },
             })
             // alert
             // refresh page

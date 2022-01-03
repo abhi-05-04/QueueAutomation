@@ -8,19 +8,20 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Footer from '../components/Footer'
 import About from '../components/about'
 
-export default function Home() {
-
+export default function Home({userInfo}) {
+  console.log(userInfo);
   return (
     <div>
       <Head><title>Queue - Home</title></Head>
-      <Nav />
-      <div className='container'>
+      <Nav  />
+      {/* cook={cook} user={res == undefined ? "login" : res.fname} */}
+      {/* <div>
         <Slider />
         <br />
         <br />
 
 
-      </div>
+      </div> */}
       <About />
       <br />
       <Footer />
@@ -29,3 +30,19 @@ export default function Home() {
     </div>
   )
 }
+
+// export const getServerSideProps = async({req,res})=>{
+//   let cook = req.cookies.user;
+//   console.log(req.cookies.user);
+//   if(cook == undefined){
+//       return {props : {userInfo : ""}}
+//   }
+//   else{
+//       let userInfo = await fetch(`http://localhost:3000/api/userInfo?admin=${cook}`);
+//       const response = await userInfo.json();
+//       return {props : {  userInfo : userInfo , cook : cook}}
+//   }
+            
+
+
+// }

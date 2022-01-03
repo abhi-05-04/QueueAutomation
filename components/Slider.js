@@ -16,16 +16,16 @@ export default function Slider() {
                         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                     </ol>
-                    <div className="carousel-inner">
+                    <div className="carousel-inner" >
                         <div className="carousel-item active">
-                            <img className="d-block w-100" src="https://image3.mouthshut.com/images/Restaurant/Photo/-64585_144532.jpg" alt="First slide"/>
+                            <img className="d-block w-100" src="/Images/wce1.jpg" alt="First slide"/>
                                 <div className="carousel-caption d-none d-md-block">
                                     <h5>My Caption Title (1st Image)</h5>
                                     <p>The whole caption will only show up if the screen is at least medium size.</p>
                                 </div>
                         </div>
                         <div className="carousel-item">
-                            <img className="d-block w-100 img-fluid" src="https://image3.mouthshut.com/images/Restaurant/Photo/-12420_144534.jpg" alt="Second slide"/>
+                            <img className="d-block w-100 img-fluid" src="/Images/slider4.jpg" alt="Second slide"/>
                         </div>
                         <div className="carousel-item">
                             <img className="d-block w-100" src="https://image3.mouthshut.com/images/Restaurant/Photo/-96430_144536.jpg" alt="Third slide"/>

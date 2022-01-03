@@ -1,6 +1,8 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 function Nav() {
+    // console.log(props.cook);
+    // let queueUrl = `/queue/${props.cook}`;
     return (
         <div>
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossOrigin="anonymous"></link>
@@ -24,7 +26,8 @@ function Nav() {
                                 <a className="nav-link active" href="#">Moto</a>
                             </li> */}
                             <li className="nav-item">
-                                <a className="nav-link active"  href="/queue">Create Queue</a>
+                                <a className="nav-link active"  href="#">Create Queue</a>
+                                {/* <a className="nav-link active"  href={queueUrl}>Create Queue</a> */}
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link active"  href="/registration">Add candidate</a>
@@ -42,3 +45,12 @@ function Nav() {
 }
 
 export default Nav;
+
+
+// export const getServerSideProps = async({req,res})=>{
+//     let cook = req.cookies.user;
+//     console.log(req);
+//     return {props : { cook : cook }}
+
+// }
+
