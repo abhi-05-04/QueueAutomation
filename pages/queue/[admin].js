@@ -7,18 +7,44 @@ import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 // import { Card } from 'reactstrap';
 import { Card  ,Button,Grid } from 'semantic-ui-react'
+import QRCode from 'qrcode.react';
 
 
-export default function Queue({ admin , cook , list}) {
+export default function Queue({ admin , cook , list , reqURL}) {
 
     const router = useRouter();
 
+    
     // console.log(list);
 
     const redir = ()=>{
         router.replace('/');
     }
-    useEffect(()=>{
+
+
+    const sendMessage = async () => {
+      
+        const res = await fetch('/api/sendMessage', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ phone: list[1].phone, message: 'Be ready you are next' }),
+        });
+        const apiResponse = await res.json();
+        console.log(apiResponse);
+        
+      };
+
+
+
+
+    useEffect(async()=>{
+        console.log(list.length)
+        if(list.length >= 2)
+            sendMessage();
+        // const res = await fetch(`/api/sendMessage`);
+        // console.log(res);
         if(admin !=cook)
             redir();
     },[]) 
@@ -47,9 +73,25 @@ export default function Queue({ admin , cook , list}) {
 
         });
     }
+
+    const downloadQRCode = ()=>{
+        const as=document.querySelectorAll("#qrcodeEl")[0];
+        const qrCodeURL =as
+          .toDataURL("image/png")
+          .replace("image/png", "image/octet-stream");
+        console.log("qrcode=="+qrCodeURL)
+        let aEl = document.createElement("a");
+        aEl.href = qrCodeURL;
+        aEl.download = "QR_Code.png";
+        document.body.appendChild(aEl);
+        aEl.click();
+        document.body.removeChild(aEl);
+    }
+
     return (
         <div>
             <Nav/>
+
             <div className="card mb-3 container">
                 <div className="row g-0">
                 {/* <Grid celled> */}
@@ -70,7 +112,16 @@ export default function Queue({ admin , cook , list}) {
                  */}
             {/* </Grid>  */}
                     <div className="col-md-6">
-                        <img src="/Images/qr.png" className="img-fluid rounded-start" alt="..."/>
+                        
+                        <QRCode
+                            className="img-fluid rounded-start" 
+                            alt="..."
+                            id="qrcodeEl"
+                            size={450}
+                            style={{padding:"5%"}}
+                            value={reqURL}
+                        />
+                        <Button content='Download' onClick={downloadQRCode} primary/>
                     </div>
                     <div className="col-md-4">
                     <div style={{marginTop:2}} >
@@ -84,9 +135,15 @@ export default function Queue({ admin , cook , list}) {
 }
 
 export const getServerSideProps = async({req,res})=>{
-    // console.log(req.url);
-
+        // console.log(req.url);
+        let date = new Date();
+        // console.log(date.getDate());
         let url = req.url.split('/');
+
+        let reqURL = "localhost:3000/";
+        for(let i=1;i<url.length;i++)
+            reqURL = reqURL + url[i] + '/';
+        reqURL = reqURL + date.getDate();
         let adminId = url[url.length-1];
         let cook = req.cookies.user;
 
@@ -95,7 +152,7 @@ export const getServerSideProps = async({req,res})=>{
             
         const response = await getList.json();
         
-        return {props : {admin :  adminId , cook : cook , list : response}}
+        return {props : {admin :  adminId , cook : cook , list : response,reqURL:reqURL}}
 
 }
 
