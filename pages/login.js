@@ -3,14 +3,29 @@ import Nav from '../components/Nav'
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 
-export default function login({token , userInfo}) {
+export default function login({token , date}) {
 
     const router = useRouter();
 
     const redir = ()=>{
         router.replace('/');
     }
+
+
+    const setDate = async()=>{
+        const D = new Date();
+        let d = D.getDate(); 
+        // d = 16;
+        console.log(date+"  "+d);
+        if(d != date){
+            console.log("confilct");
+            Cookies.set("date",d,{expires:24/24});
+            await fetch(`http://localhost:3000/api/deleteList`);
+            console.log("deleted");
+        }
+    }
     useEffect(()=>{
+        setDate();
         if(token != "") 
             redir();
     },[]);
@@ -28,7 +43,7 @@ export default function login({token , userInfo}) {
                 await result.json()
                 .then((x)=>{
                     let id = x._id;
-                    Cookies.set("user",JSON.stringify(x),{expires:1/24});
+                    Cookies.set("user",id,{expires:1/24});
                     router.replace('/');
                 })
                 .catch((err)=>{
@@ -49,7 +64,7 @@ export default function login({token , userInfo}) {
 
     return (
         <div>
-            <Nav cook={userInfo} /> 
+            <Nav />
             <form className="container text-center border border-light p-5" action="#!">
 
                 <p className="h4 mb-4">Sign in</p>
@@ -91,9 +106,12 @@ export default function login({token , userInfo}) {
 
 
 export function getServerSideProps({ req , res }){
-    let cook = req.cookies.user;
+    let token = "" , date = "";
     if(req.cookies.user != undefined){
-        return { props : { userInfo:cook,token : req.cookies.user } };
+        token = req.cookies.user;
     }
-    return { props : {userInfo: "",token : ""} };
+    if(req.cookies.date  != undefined){
+        date = req.cookies.date;
+    }
+    return { props : { token : token , date : date } };
 }

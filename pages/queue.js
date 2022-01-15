@@ -1,8 +1,9 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Nav from '../components/Nav'
+import { useEffect } from 'react';
 
-export default function Queue({ cno, cList,userInfo }) {
+export default function Queue({ cno, cList,userInfo ,date }) {
 
     // let items = [];
     // for (let i = 0; i < cno; i++) {
@@ -20,6 +21,23 @@ export default function Queue({ cno, cList,userInfo }) {
 
     //     });
     // }
+
+    const setDate = async()=>{
+        const D = new Date();
+        let d = D.getDate(); 
+        // d = 16;
+        console.log(date+"  "+d);
+        if(d != date){
+            console.log("confilct");
+            Cookies.set("date",d,{expires:1/24});
+            await fetch(`http://localhost:3000/api/deleteList`);
+            console.log("deleted");
+        }
+    }
+    useEffect(()=>{
+        setDate();
+
+    },[]);
     return (
         <div>
             <Nav cook={userInfo} /> 
@@ -46,11 +64,16 @@ export default function Queue({ cno, cList,userInfo }) {
 export const getServerSideProps = async ({ req, res }) => {
     let cook = req.cookies.user;
     // console.log("hello"+req.cookies.user);
+    let  date = "";
+  
+    if(req.cookies.date  != undefined){
+        date = req.cookies.date;
+    }
     if (cook == undefined) {
-        return { props: { userInfo: "" } }
+        return { props: { userInfo: "" , date : date } }
     }
     else {
-        return { props: { userInfo: cook, cook: cook } }
+        return { props: { userInfo: cook, cook: cook ,  date : date  } }
     }
 
 

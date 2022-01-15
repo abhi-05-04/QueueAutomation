@@ -3,12 +3,27 @@ import Nav from '../components/Nav'
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 
-export default function registration({token}) {
+export default function registration({token , date}) {
 
 
     const router = useRouter();
 
-    var token1 = (token == undefined || token == "")?{}:JSON.parse(token);
+
+    const setDate = async()=>{
+        const D = new Date();
+        let d = D.getDate(); 
+        // d = 16;
+        // console.log(date+"  "+d);
+        if(d != date){
+            console.log("confilct");
+            Cookies.set("date",d,{expires:1/24});
+            await fetch(`http://localhost:3000/api/deleteList`);
+            console.log("deleted");
+        }
+    }
+
+
+    var token1 = (token == undefined || token == "")?{}:token;
     token1 = token1._id;
     
     const [fname , setFname] = useState("");
@@ -19,6 +34,8 @@ export default function registration({token}) {
         router.replace('/');
     }
     useEffect(()=>{
+        // console.log(token);
+        setDate();
         if(token1 == "") 
             redir();
     },[]);
@@ -28,7 +45,8 @@ export default function registration({token}) {
     const handleClick = async(event)=>{
         event.preventDefault();
         try{
-            await fetch(`http://localhost:3000/api/registerQ?fname=${fname}&lname=${lname}&phone=${ph}&admin=${token1}`,{
+            console.log(fname);
+            await fetch(`http://localhost:3000/api/registerQ?fname=${fname}&lname=${lname}&phone=${ph}&admin=${token}`,{
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -47,14 +65,14 @@ export default function registration({token}) {
         <div>
             <Nav cook={token}/>
             {/* <!-- Default form register --> */}
-            <form className="text-center border border-light p-5" action="#!">
+            <form className="text-center border border-light p-5" >
 
                 <p className="h4 mb-4">Add yourself to virtual Queue</p>
 
                 <div className="form-row mb-4">
                     <div className="col">
                         {/* <!-- First name --> */}
-                        <input type="text" id="defaultRegisterFormFirstName" onChange={(e)=>{setFname(e.target.value)}} className="form-control" placeholder="First name" />
+                        <input type="text" id="defaultRegisterFormFirstName" onChange={(e)=>{setFname(e.target.value) ;}} className="form-control" placeholder="First name" />
                     </div>
                     <br />
                     <div className="col">
@@ -64,8 +82,8 @@ export default function registration({token}) {
                 </div>
 
                 {/* <!-- Phone number --> */}
-                <input type="text" id="defaultRegisterPhonePassword" className="form-control" placeholder="Phone number" aria-describedby="defaultRegisterFormPhoneHelpBlock" />
-                <small id="defaultRegisterFormPhoneHelpBlock" onChange={(e)=>{setPh(e.target.value)}} className="form-text text-muted mb-4">
+                <input type="text" id="defaultRegisterPhonePassword" onChange={(e)=>{setPh(e.target.value);}} className="form-control" placeholder="Phone number" aria-describedby="defaultRegisterFormPhoneHelpBlock" />
+                <small id="defaultRegisterFormPhoneHelpBlock"  className="form-text text-muted mb-4">
                     For sending updates about Queue
                 </small>
 
@@ -84,8 +102,13 @@ export default function registration({token}) {
 
 
 export function getServerSideProps({ req , res }){
-    if(req.cookies.user != undefined){
-        return { props : { token : req.cookies.user } };
+    let  date = "";
+  
+    if(req.cookies.date  != undefined){
+        date = req.cookies.date;
     }
-    return { props : {token : ""} };
+    if(req.cookies.user != undefined){
+        return { props : { token : req.cookies.user  ,date : date } };
+    }
+    return { props : {token : "" , date : date} };
 }

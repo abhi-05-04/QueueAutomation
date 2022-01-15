@@ -6,7 +6,7 @@ function Nav(props) {
     console.log(props.cook);
     const router = useRouter();
 
-    var name = (props.cook == undefined || props.cook == "") ? "" : JSON.parse(props.cook)
+    var name = (props.cook == undefined || props.cook == "") ? "" : props.cook
     // let queueUrl = `/queue/${props.cook}`;
     const logout = () => {
         Cookies.remove("user");

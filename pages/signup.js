@@ -6,8 +6,22 @@ import Cookies from "js-cookie";
 import { useEffect } from 'react';
 
 
-export default function signup({ token }) {
+export default function signup({ token,date }) {
     const router = useRouter();
+
+    const setDate = async()=>{
+        const D = new Date();
+        let d = D.getDate(); 
+        // d = 16;
+        console.log(date+"  "+d);
+        if(d != date){
+            console.log("confilct");
+            Cookies.set("date",d,{expires:1/24});
+            await fetch(`http://localhost:3000/api/deleteList`);
+            console.log("deleted");
+        }
+    }
+
 
     var token1 = (token == undefined || token == "") ? {} : JSON.parse(token);
     token1 = token1._id;
@@ -16,6 +30,7 @@ export default function signup({ token }) {
         router.replace('/');
     }
     useEffect(() => {
+        setDate();
         if (token != "")
             redir();
     }, []);
@@ -131,8 +146,13 @@ export default function signup({ token }) {
 
 
 export function getServerSideProps({ req, res }) {
-    if (req.cookies.user != undefined) {
-        return { props: { token: req.cookies.user } };
+    let  date = "";
+  
+    if(req.cookies.date  != undefined){
+        date = req.cookies.date;
     }
-    return { props: { token: "" } };
+    if (req.cookies.user != undefined) {
+        return { props: { token: req.cookies.user ,date : date} };
+    }
+    return { props: { token: "" , date : date} };
 }

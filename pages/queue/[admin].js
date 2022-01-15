@@ -10,12 +10,22 @@ import { Card  ,Button,Grid } from 'semantic-ui-react'
 import QRCode from 'qrcode.react';
 
 
-export default function Queue({ admin , cook , list ,userInfo, reqURL}) {
+export default function Queue({ admin , cook , list , reqURL  ,date}) {
 
     const router = useRouter();
 
-    
-    // console.log(list);
+    const setDate = async()=>{
+        const D = new Date();
+        let d = D.getDate(); 
+        // d = 16;
+        console.log(date+"  "+d);
+        if(d != date){
+            console.log("confilct");
+            Cookies.set("date",d,{expires:1/24});
+            await fetch(`http://localhost:3000/api/deleteList`);
+            console.log("deleted");
+        }
+    }
 
     const redir = ()=>{
         router.replace('/');
@@ -41,6 +51,7 @@ export default function Queue({ admin , cook , list ,userInfo, reqURL}) {
 
     useEffect(async()=>{
         console.log(list.length)
+        setDate();
         if(list.length >= 2)
             sendMessage();
         // const res = await fetch(`/api/sendMessage`);
@@ -90,7 +101,7 @@ export default function Queue({ admin , cook , list ,userInfo, reqURL}) {
 
     return (
         <div>
-            <Nav cook={userInfo} />
+            <Nav/>
 
             <div className="card mb-3 container">
                 <div className="row g-0">
@@ -145,14 +156,18 @@ export const getServerSideProps = async({req,res})=>{
             reqURL = reqURL + url[i] + '/';
         reqURL = reqURL + date.getDate();
         let adminId = url[url.length-1];
-        var name = req.cookies.user;
-        var cook1 = req.cookies.user == undefined?"":JSON.parse(name);
-        var cook = cook1._id;
+        let cook = req.cookies.user;
+
+
         let getList = await fetch(`http://localhost:3000/api/getList?admin=${adminId}`);
             
         const response = await getList.json();
+        let d = "";
+        if(req.cookies.date  != undefined){
+            d = req.cookies.date;
+        }
         
-        return {props : {admin :  adminId , cook : cook ,userInfo: name, list : response,reqURL:reqURL}}
+        return {props : {admin :  adminId , cook : cook , list : response,reqURL:reqURL , date : d}}
 
 }
 

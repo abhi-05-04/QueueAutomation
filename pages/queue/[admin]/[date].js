@@ -9,6 +9,24 @@ import { route } from 'next/dist/server/router';
 export default function registration({props}) {
     const router = useRouter();
 
+    const setDate = async()=>{
+        const D = new Date();
+        let d = D.getDate(); 
+        // d = 16;
+        console.log(date+"  "+d);
+        if(d != props.date){
+            console.log("confilct");
+            Cookies.set("date",d,{expires:1/24});
+            await fetch(`http://localhost:3000/api/deleteList`);
+            console.log("deleted");
+        }
+    }
+
+    useEffect(()=>{
+        setDate();
+    },[]);
+
+
     const [fname , setFname] = useState("");
     const [lname , setLname] = useState("");
     const [ph , setPh] = useState("");
@@ -72,6 +90,10 @@ export default function registration({props}) {
 
 registration.getInitialProps = (ctx)=>{
     console.log(ctx.query);
+    let date = "";
+    if(req.cookies.date  != undefined){
+        date = req.cookies.date;
+    }
 
-    return {props : {admin : ctx.query.admin}}
+    return {props : {admin : ctx.query.admin , date : date}};
 }
