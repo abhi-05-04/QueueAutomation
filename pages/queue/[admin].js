@@ -10,7 +10,7 @@ import { Card  ,Button,Grid } from 'semantic-ui-react'
 import QRCode from 'qrcode.react';
 
 
-export default function Queue({ admin , cook , list , reqURL}) {
+export default function Queue({ admin , cook , list ,userInfo, reqURL}) {
 
     const router = useRouter();
 
@@ -90,7 +90,7 @@ export default function Queue({ admin , cook , list , reqURL}) {
 
     return (
         <div>
-            <Nav/>
+            <Nav cook={userInfo} />
 
             <div className="card mb-3 container">
                 <div className="row g-0">
@@ -145,14 +145,14 @@ export const getServerSideProps = async({req,res})=>{
             reqURL = reqURL + url[i] + '/';
         reqURL = reqURL + date.getDate();
         let adminId = url[url.length-1];
-        let cook = req.cookies.user;
-
-
+        var name = req.cookies.user;
+        var cook1 = req.cookies.user == undefined?"":JSON.parse(name);
+        var cook = cook1._id;
         let getList = await fetch(`http://localhost:3000/api/getList?admin=${adminId}`);
             
         const response = await getList.json();
         
-        return {props : {admin :  adminId , cook : cook , list : response,reqURL:reqURL}}
+        return {props : {admin :  adminId , cook : cook ,userInfo: name, list : response,reqURL:reqURL}}
 
 }
 

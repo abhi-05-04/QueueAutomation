@@ -2,7 +2,7 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Nav from '../components/Nav'
 
-export default function Queue({ cno, cList }) {
+export default function Queue({ cno, cList,userInfo }) {
 
     // let items = [];
     // for (let i = 0; i < cno; i++) {
@@ -22,23 +22,37 @@ export default function Queue({ cno, cList }) {
     // }
     return (
         <div>
-            <Nav/>
+            <Nav cook={userInfo} /> 
             <div className="card mb-3">
                 <div className="row g-0">
                     <div className="col-md-4">
-                        <img src="/Images/qr.png" className="img-fluid rounded-start" alt="..."/>
+                        <img src="/Images/qr.png" className="img-fluid rounded-start" alt="..." />
                     </div>
                     <div className="col-md-8">
-                    <div>
-                        {/* <Card.Group items={items} /> */}
-                    </div>
+                        <div>
+                            {/* <Card.Group items={items} /> */}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     )
     Queue.getInitialProps = async () => {
-        
+
         return { cno, cList };
     }
+}
+
+export const getServerSideProps = async ({ req, res }) => {
+    let cook = req.cookies.user;
+    // console.log("hello"+req.cookies.user);
+    if (cook == undefined) {
+        return { props: { userInfo: "" } }
+    }
+    else {
+        return { props: { userInfo: cook, cook: cook } }
+    }
+
+
+
 }

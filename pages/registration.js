@@ -8,7 +8,9 @@ export default function registration({token}) {
 
     const router = useRouter();
 
-
+    var token1 = (token == undefined || token == "")?{}:JSON.parse(token);
+    token1 = token1._id;
+    
     const [fname , setFname] = useState("");
     const [lname , setLname] = useState("");
     const [ph , setPh] = useState("");
@@ -17,16 +19,16 @@ export default function registration({token}) {
         router.replace('/');
     }
     useEffect(()=>{
-        if(token == "") 
+        if(token1 == "") 
             redir();
     },[]);
 
 
 
-    const handleClick = async()=>{
+    const handleClick = async(event)=>{
         event.preventDefault();
         try{
-            await fetch(`http://localhost:3000/api/registerQ?fname=${fname}&lname=${lname}&phone=${ph}&admin=${token}`,{
+            await fetch(`http://localhost:3000/api/registerQ?fname=${fname}&lname=${lname}&phone=${ph}&admin=${token1}`,{
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -43,7 +45,7 @@ export default function registration({token}) {
 
     return (
         <div>
-            <Nav />
+            <Nav cook={token}/>
             {/* <!-- Default form register --> */}
             <form className="text-center border border-light p-5" action="#!">
 

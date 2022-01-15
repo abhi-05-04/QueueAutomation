@@ -3,7 +3,7 @@ import Nav from '../components/Nav'
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 
-export default function login({token}) {
+export default function login({token , userInfo}) {
 
     const router = useRouter();
 
@@ -28,7 +28,7 @@ export default function login({token}) {
                 await result.json()
                 .then((x)=>{
                     let id = x._id;
-                    Cookies.set("user",id,{expires:1/24});
+                    Cookies.set("user",JSON.stringify(x),{expires:1/24});
                     router.replace('/');
                 })
                 .catch((err)=>{
@@ -49,7 +49,7 @@ export default function login({token}) {
 
     return (
         <div>
-            <Nav />
+            <Nav cook={userInfo} /> 
             <form className="container text-center border border-light p-5" action="#!">
 
                 <p className="h4 mb-4">Sign in</p>
@@ -91,8 +91,9 @@ export default function login({token}) {
 
 
 export function getServerSideProps({ req , res }){
+    let cook = req.cookies.user;
     if(req.cookies.user != undefined){
-        return { props : { token : req.cookies.user } };
+        return { props : { userInfo:cook,token : req.cookies.user } };
     }
-    return { props : {token : ""} };
+    return { props : {userInfo: "",token : ""} };
 }

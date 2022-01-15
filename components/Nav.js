@@ -1,8 +1,17 @@
 import React from "react";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 import 'bootstrap/dist/css/bootstrap.min.css';
-function Nav() {
-    // console.log(props.cook);
+function Nav(props) {
+    console.log(props.cook);
+    const router = useRouter();
+
+    var name = (props.cook == undefined || props.cook == "") ? "" : JSON.parse(props.cook)
     // let queueUrl = `/queue/${props.cook}`;
+    const logout = () => {
+        Cookies.remove("user");
+        router.replace('/login');
+    }
     return (
         <div>
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossOrigin="anonymous"></link>
@@ -25,16 +34,35 @@ function Nav() {
                             <li className="nav-item">
                                 <a className="nav-link active" href="#">Moto</a>
                             </li> */}
+                            {props.cook == "" ?
+                                <li></li> :
+
+                                <li className="nav-item">
+                                    <a className="nav-link active" href={'/queue/' +name._id}>Create Queue</a>
+                                    {/* <a className="nav-link active"  href={queueUrl}>Create Queue</a> */}
+                                </li>
+                            }
+                            {props.cook == "" ?
+                                <li></li> :
+                                <li className="nav-item">
+                                    <a className="nav-link active" href="/registration">Add candidate</a>
+                                </li>
+                            }
+
                             <li className="nav-item">
-                                <a className="nav-link active"  href="#">Create Queue</a>
-                                {/* <a className="nav-link active"  href={queueUrl}>Create Queue</a> */}
+                                {props.cook == "" ?
+                                    <a className="nav-link active" href="/login">login</a> :
+                                    <a className="nav-link active" href="/">{name.fname}</a>
+
+                                }
                             </li>
-                            <li className="nav-item">
-                                <a className="nav-link active"  href="/registration">Add candidate</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link active"  href="/login">login</a>
-                            </li>
+                            {props.cook == "" ?
+                                <li></li> :
+                                <li className="nav-item">
+                                    <a className="nav-link active" onClick={logout}>LogOut</a>
+                                </li>
+
+                            }
                         </ul>
                     </div>
                 </div>
