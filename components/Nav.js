@@ -5,9 +5,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function Nav(props) {
     console.log(props.cook);
     const router = useRouter();
-
     var name = (props.cook == undefined || props.cook == "") ? "" : props.cook
     // let queueUrl = `/queue/${props.cook}`;
+    
     const logout = () => {
         Cookies.remove("user");
         router.replace('/login');
@@ -34,11 +34,11 @@ function Nav(props) {
                             <li className="nav-item">
                                 <a className="nav-link active" href="#">Moto</a>
                             </li> */}
-                            {props.cook == "" ?
+                            {props.cook == ""  ?
                                 <li></li> :
 
                                 <li className="nav-item">
-                                    <a className="nav-link active" href={'/queue/' +name._id}>Create Queue</a>
+                                    <a className="nav-link active" href={'/queue/' +name}>Create Queue</a>
                                     {/* <a className="nav-link active"  href={queueUrl}>Create Queue</a> */}
                                 </li>
                             }
@@ -52,8 +52,8 @@ function Nav(props) {
                             <li className="nav-item">
                                 {props.cook == "" ?
                                     <a className="nav-link active" href="/login">login</a> :
-                                    <a className="nav-link active" href="/">{name.fname}</a>
-
+                                    <a className="nav-link active" href="/"></a>
+                                    // {name.fname}
                                 }
                             </li>
                             {props.cook == "" ?

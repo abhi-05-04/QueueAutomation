@@ -2,6 +2,7 @@ import React, { useState ,useEffect } from 'react'
 import Nav from '../components/Nav'
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
+import { route } from 'next/dist/server/router';
 
 export default function login({token , date}) {
 
@@ -42,9 +43,16 @@ export default function login({token , date}) {
             .then(async(result)=>{
                 await result.json()
                 .then((x)=>{
-                    let id = x._id;
-                    Cookies.set("user",id,{expires:1/24});
-                    router.replace('/');
+                    if(x==null || x== undefined)
+                        router.replace("/login");
+                    else
+                    {
+                        let id = x._id;
+                        
+                        console.log(x);
+                        Cookies.set("user",id,{expires:1/24});
+                        router.replace('/');
+                    }
                 })
                 .catch((err)=>{
                     console.log(err);
@@ -64,7 +72,8 @@ export default function login({token , date}) {
 
     return (
         <div>
-            <Nav />
+            <Nav cook={token} />
+
             <form className="container text-center border border-light p-5" action="#!">
 
                 <p className="h4 mb-4">Sign in</p>
