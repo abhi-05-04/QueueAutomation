@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React , {useState , useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Nav from '../components/Nav'
@@ -9,29 +9,31 @@ import Footer from '../components/Footer'
 import About from '../components/about'
 import Cookies from 'js-cookie'
 
-export default function Home({ userInfo , cook , date }) {
+export default function Home({ userInfo, cook, date }) {
   // console.log("-> "+userInfo);
 
-  const setDate = async()=>{
-      const D = new Date();
-      let d = D.getDate(); 
-      // d = 16;
-      console.log(date+"  "+d);
-      if(d != date){
-          console.log("confilct");
-          Cookies.set("date",d,{expires:1/24});
-          await fetch(`http://localhost:3000/api/deleteList`);
-          console.log("deleted");
-      }
+  const setDate = async () => {
+    const D = new Date();
+    let d = D.getDate();
+    // d = 16;
+    console.log(date + "  " + d);
+    if (d != date) {
+      console.log("confilct");
+      Cookies.set("date", d, { expires: 1 / 24 });
+      await fetch(`http://localhost:3000/api/deleteList`);
+      console.log("deleted");
+    }
   }
-  useEffect(()=>{
-      setDate();
-      
-  },[]);
+  useEffect(() => {
+    setDate();
+
+  }, []);
   return (
     <div>
+
+    
       <Head><title>Queue - Home</title></Head>
-      <Nav cook={userInfo}  />
+      <Nav cook={userInfo} />
       {/* user={userInfo == undefined ? "login" : userInfo.fname} */}
       {/* <div>
         <Slider />
@@ -76,10 +78,10 @@ export const getServerSideProps = async ({ req, res }) => {
     // const response = await userInfo.json();
     // console.log(userInfo);
     let date = "";
-    if(req.cookies.date  != undefined){
+    if (req.cookies.date != undefined) {
       date = req.cookies.date;
-  }
-    return { props: { userInfo: cook, cook: cook ,date : date} }
+    }
+    return { props: { userInfo: cook, cook: cook, date: date } }
   }
 
 
