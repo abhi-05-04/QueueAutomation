@@ -43,16 +43,13 @@ export default function login({token , date}) {
             .then(async(result)=>{
                 await result.json()
                 .then((x)=>{
-                    if(x==null || x== undefined)
-                        router.replace("/login");
-                    else
-                    {
-                        let id = x._id;
-                        
-                        console.log(x);
+                    
+                    let id = x._id;
+                    console.log(id);
+                    if(id != null && id != undefined){
                         Cookies.set("user",id,{expires:1/24});
-                        router.replace('/');
                     }
+                    router.reload('/login');
                 })
                 .catch((err)=>{
                     console.log(err);

@@ -16,12 +16,12 @@ export default function Home({ userInfo, cook, date }) {
     const D = new Date();
     let d = D.getDate();
     // d = 16;
-    console.log(date + "  " + d);
+    // console.log(date + "  " + d);
     if (d != date) {
-      console.log("confilct");
+      // console.log("confilct");
       Cookies.set("date", d, { expires: 1 / 24 });
       await fetch(`http://localhost:3000/api/deleteList`);
-      console.log("deleted");
+      // console.log("deleted");
     }
   }
   useEffect(() => {
