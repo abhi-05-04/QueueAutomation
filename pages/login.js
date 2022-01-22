@@ -48,7 +48,7 @@ export default function login({token , date}) {
                     console.log(id);
                     if(id != null && id != undefined){
                         Cookies.set("user",id,{expires:1/24});
-                    }
+                    }x
                     router.reload('/login');
                 })
                 .catch((err)=>{

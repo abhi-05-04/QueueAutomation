@@ -6,91 +6,91 @@ import 'semantic-ui-css/semantic.min.css'
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 // import { Card } from 'reactstrap';
-import { Card  ,Button,Grid } from 'semantic-ui-react'
+import { Card, Button, Grid } from 'semantic-ui-react'
 import QRCode from 'qrcode.react';
 
 
-export default function Queue({ admin , cook , list , reqURL  ,date}) {
+export default function Queue({ admin, cook, list, reqURL, date }) {
 
     const router = useRouter();
 
-    const setDate = async()=>{
+    const setDate = async () => {
         const D = new Date();
-        let d = D.getDate(); 
+        let d = D.getDate();
         // d = 16;
-        console.log(date+"  "+d);
-        if(d != date){
+        console.log(date + "  " + d);
+        if (d != date) {
             console.log("confilct");
-            Cookies.set("date",d,{expires:1/24});
+            Cookies.set("date", d, { expires: 1 / 24 });
             await fetch(`http://localhost:3000/api/deleteList`);
             console.log("deleted");
         }
     }
 
-    const redir = ()=>{
+    const redir = () => {
         router.replace('/');
     }
 
 
     const sendMessage = async () => {
-      
+
         const res = await fetch('/api/sendMessage', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ phone: list[1].phone, message: 'Be ready you are next' }),
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ phone: list[1].phone, message: 'Be ready you are next' }),
         });
         const apiResponse = await res.json();
         console.log(apiResponse);
-        
-      };
+
+    };
 
 
 
 
-    useEffect(async()=>{
+    useEffect(async () => {
         console.log(list.length)
         setDate();
-        if(list.length >= 2)
+        if (list.length >= 2)
             sendMessage();
         // const res = await fetch(`/api/sendMessage`);
         // console.log(res);
-        if(admin !=cook)
+        if (admin != cook)
             redir();
-    },[]) 
+    }, [])
 
     let items = [];
     for (let i = 0; i < list.length; i++) {
         // console.log(cList[i]);
         items.push({
-            header: `${i+1}. ${list[i].fname} ${list[i].lname}`,
+            header: `${i + 1}. ${list[i].fname} ${list[i].lname}`,
             meta: `${list[i].phone}`,
             description: (
 
                 <Card.Content extra>
-                <div className='ui two buttons'>
-                    <Button basic color='green' style={{margin:3}}>
-                    Approve
-                    </Button>
-                    <Button basic color='red'  style={{margin:3}}>
-                    Decline
-                </Button>
-                </div>
-            </Card.Content>
-            
+                    <div className='ui two buttons'>
+                        <Button basic color='green' style={{ margin: 3 }}>
+                            Approve
+                        </Button>
+                        <Button basic color='red' style={{ margin: 3 }}>
+                            Decline
+                        </Button>
+                    </div>
+                </Card.Content>
+
             ),
             fluid: true
 
         });
     }
 
-    const downloadQRCode = ()=>{
-        const as=document.querySelectorAll("#qrcodeEl")[0];
-        const qrCodeURL =as
-          .toDataURL("image/png")
-          .replace("image/png", "image/octet-stream");
-        console.log("qrcode=="+qrCodeURL)
+    const downloadQRCode = () => {
+        const as = document.querySelectorAll("#qrcodeEl")[0];
+        const qrCodeURL = as
+            .toDataURL("image/png")
+            .replace("image/png", "image/octet-stream");
+        console.log("qrcode==" + qrCodeURL)
         let aEl = document.createElement("a");
         aEl.href = qrCodeURL;
         aEl.download = "QR_Code.png";
@@ -101,12 +101,12 @@ export default function Queue({ admin , cook , list , reqURL  ,date}) {
 
     return (
         <div>
-            <Nav/>
+            <Nav />
 
             <div className="card mb-3 container">
                 <div className="row g-0">
-                {/* <Grid celled> */}
-                {/* <Grid.Row>
+                    {/* <Grid celled> */}
+                    {/* <Grid.Row>
                 <Grid.Column width={9}>
                     <div className="col-md-10">
                         <img src="/Images/qr.png" className="img-fluid rounded-start" alt="..."/>
@@ -121,23 +121,23 @@ export default function Queue({ admin , cook , list , reqURL  ,date}) {
                 </Grid.Column>
                 </Grid.Row>
                  */}
-            {/* </Grid>  */}
+                    {/* </Grid>  */}
                     <div className="col-md-6">
-                        
+
                         <QRCode
-                            className="img-fluid rounded-start" 
+                            className="img-fluid rounded-start"
                             alt="..."
                             id="qrcodeEl"
                             size={450}
-                            style={{padding:"5%"}}
+                            style={{ padding: "5%" }}
                             value={reqURL}
                         />
-                        <Button content='Download' onClick={downloadQRCode} primary/>
+                        <Button content='Download' onClick={downloadQRCode} primary />
                     </div>
                     <div className="col-md-4">
-                    <div style={{marginTop:2}} >
-                        <Card.Group items={items} />
-                    </div>
+                        <div style={{ marginTop: 2 }} >
+                            <Card.Group items={items} />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -145,29 +145,29 @@ export default function Queue({ admin , cook , list , reqURL  ,date}) {
     )
 }
 
-export const getServerSideProps = async({req,res})=>{
-        // console.log(req.url);
-        let date = new Date();
-        // console.log(date.getDate());
-        let url = req.url.split('/');
+export const getServerSideProps = async ({ req, res }) => {
+    // console.log(req.url);
+    let date = new Date();
+    // console.log(date.getDate());
+    let url = req.url.split('/');
 
-        let reqURL = "localhost:3000/";
-        for(let i=1;i<url.length;i++)
-            reqURL = reqURL + url[i] + '/';
-        reqURL = reqURL + date.getDate();
-        let adminId = url[url.length-1];
-        let cook = req.cookies.user;
+    let reqURL = "localhost:3000/";
+    for (let i = 1; i < url.length; i++)
+        reqURL = reqURL + url[i] + '/';
+    reqURL = reqURL + date.getDate();
+    let adminId = url[url.length - 1];
+    let cook = req.cookies.user;
 
 
-        let getList = await fetch(`http://localhost:3000/api/getList?admin=${adminId}`);
-            
-        const response = await getList.json();
-        let d = "";
-        if(req.cookies.date  != undefined){
-            d = req.cookies.date;
-        }
-        
-        return {props : {admin :  adminId , cook : cook , list : response,reqURL:reqURL , date : d}}
+    let getList = await fetch(`http://localhost:3000/api/getList?admin=${adminId}`);
+
+    const response = await getList.json();
+    let d = "";
+    if (req.cookies.date != undefined) {
+        d = req.cookies.date;
+    }
+
+    return { props: { admin: adminId, cook: cook, list: response, reqURL: reqURL, date: d } }
 
 }
 

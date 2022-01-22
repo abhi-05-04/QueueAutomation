@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Nav from '../components/Nav'
+import SuperNav from '../components/NavforSuperAdmin'
 import Slider from '../components/Slider'
 import 'bootstrap/dist/css/bootstrap.css';
 import Footer from '../components/Footer'
@@ -33,7 +34,8 @@ export default function Home({ userInfo, cook, date }) {
 
     
       <Head><title>Queue - Home</title></Head>
-      <Nav cook={userInfo} />
+      {userInfo == "61ebb855231640c1d2f54c76"?<SuperNav cook={userInfo} />:<Nav cook={userInfo} />}
+      {/* <Nav cook={userInfo} /> */}
       {/* user={userInfo == undefined ? "login" : userInfo.fname} */}
       {/* <div>
         <Slider />
