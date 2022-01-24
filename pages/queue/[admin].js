@@ -21,7 +21,7 @@ export default function Queue({ admin, cook, list, reqURL, date }) {
         console.log(date + "  " + d);
         if (d != date) {
             console.log("confilct");
-            Cookies.set("date", d, { expires: 1 / 24 });
+            Cookies.set("date", d, { expires: 24 / 24 });
             await fetch(`http://localhost:3000/api/deleteList`);
             console.log("deleted");
         }
