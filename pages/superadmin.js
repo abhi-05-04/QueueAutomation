@@ -121,7 +121,7 @@ export default function login({ token, date }) {
         let queueList = map1[id];
         if (queueList == undefined) {
             var x = 0;
-            alert("No queue avaible");
+            alert("No queue avaible for this admin!");
         }
         else {
             console.log(">" + queueList.length);

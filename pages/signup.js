@@ -6,17 +6,17 @@ import Cookies from "js-cookie";
 import { useEffect } from 'react';
 
 
-export default function signup({ token,date }) {
+export default function signup({ token, date }) {
     const router = useRouter();
 
-    const setDate = async()=>{
+    const setDate = async () => {
         const D = new Date();
-        let d = D.getDate(); 
+        let d = D.getDate();
         // d = 16;
-        console.log(date+"  "+d);
-        if(d != date){
+        console.log(date + "  " + d);
+        if (d != date) {
             console.log("confilct");
-            Cookies.set("date",d,{expires:24/24});
+            Cookies.set("date", d, { expires: 24 / 24 });
             await fetch(`http://localhost:3000/api/deleteList`);
             console.log("deleted");
         }
@@ -61,44 +61,84 @@ export default function signup({ token,date }) {
 
     const register = async (event) => {
         event.preventDefault();
+        if (validate()) {
+            try {
+                await fetch(`http://localhost:3000/api/newAdmin?fname=${fname}&lname=${lname}&email=${email}&password=${pass}&number=${num}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                    .then(async (result) => {
+                        await result.json()
+                            .then((x) => {
+                                console.log(x);
 
-        try {
-            await fetch(`http://localhost:3000/api/newAdmin?fname=${fname}&lname=${lname}&email=${email}&password=${pass}&number=${num}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-                .then(async (result) => {
-                    await result.json()
-                        .then((x) => {
-                            console.log(x);
-                            
-                            let str = toString(x);
-                            Cookies.set("user", x, { expires: 1 / 24 });
-                            router.replace('/');
-                        })
-                        .catch((err) => {
-                            console.log(err);
-                        })
-                })
-                .catch((err) => {
-                    console.log(err);
-                })
-        }
-        catch (err) {
-            console.log(err);
+                                let str = toString(x);
+                                Cookies.set("user", x, { expires: 1 / 24 });
+                                router.replace('/');
+                            })
+                            .catch((err) => {
+                                console.log(err);
+                            })
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
+            }
+            catch (err) {
+                console.log(err);
+                alert("Failed to signin!")
+            }
         }
 
     }
 
+    const validate = () => {
+        if (fname === "") {
+            alert("Enter First Name!")
+            return;
+        }
+        if (lname === "") {
+            alert("Enter Last Name!")
+            return;
+        }
+        if (email === "") {
+            alert("Enter Email!");
+            return;
+        }
+        if (!String(email).toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+            alert("Enter Valid Email!");
+            return;
+        }
+        if(pass === "")
+        {
+            alert("Enter password!");
+            return;
+        }
+        if(pass.length<6)
+        {
+            alert("password too short!");
+            return;
+        }
+        if(num === "")
+        {
+            alert("Enter Phone Number!");
+            return;
+        }
+        if(num.length!=10)
+        {
+            alert("Enter Valid phone Number!");
+            return;
+        }
+        return true;
 
+    }
 
 
     return (
         <div>
             <Nav cook={token} />
-            {/* <!-- Default form register --> */}
             <form className="text-center border border-light p-5" method='POST'
             /*onSubmit={register}*/ >
 
@@ -119,11 +159,11 @@ export default function signup({ token,date }) {
                 <input type="email" id="defaultRegisterFormEmail" onChange={handleEmail} className="form-control mb-4" placeholder="E-mail" />
 
                 <input type="password" id="defaultRegisterFormPassword" onChange={handlePass} className="form-control" aria-label='At least 8 characters and 1 digit' placeholder="Password" aria-describedby="defaultRegisterFormPasswordHelpBlock" />
-                {/* <small id="defaultRegisterFormPasswordHelpBlock" className="form-text text-muted mb-4">
-                    At least 8 characters and 1 digit
-                </small> */}
+                <small id="defaultRegisterFormPasswordHelpBlock" className="form-text text-muted mb-4">
+                    At least 6 characters
+                </small>
 
-<br />
+                <br />
                 <input type="text" id="defaultRegisterPhonePassword" onChange={handleNum} className="form-control" placeholder="Phone number" aria-describedby="defaultRegisterFormPhoneHelpBlock" />
                 {/* <small id="defaultRegisterFormPhoneHelpBlock" className="form-text text-muted mb-4">
                     Optional - for two step authentication
@@ -146,13 +186,13 @@ export default function signup({ token,date }) {
 
 
 export function getServerSideProps({ req, res }) {
-    let  date = "";
-  
-    if(req.cookies.date  != undefined){
+    let date = "";
+
+    if (req.cookies.date != undefined) {
         date = req.cookies.date;
     }
     if (req.cookies.user != undefined) {
-        return { props: { token: req.cookies.user ,date : date} };
+        return { props: { token: req.cookies.user, date: date } };
     }
-    return { props: { token: "" , date : date} };
+    return { props: { token: "", date: date } };
 }

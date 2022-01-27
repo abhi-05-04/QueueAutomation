@@ -33,39 +33,58 @@ export default function login({token , date}) {
 
     const handleLogin = async (event)=>{
         event.preventDefault();
-        try{
-            await fetch(`http://localhost:3000/api/auth?email=${email}&password=${pass}`,{
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-            .then(async(result)=>{
-                await result.json()
-                .then((x)=>{
-                    
-                    let id = x._id;
-                    console.log(id);
-                    if(id != null && id != undefined){
-                        Cookies.set("user",id,{expires:1/24});
-                    }x
-                    router.reload('/login');
+        if(validate())
+        {
+            try{
+                await fetch(`http://localhost:3000/api/auth?email=${email}&password=${pass}`,{
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then(async(result)=>{
+                    await result.json()
+                    .then((x)=>{
+                        
+                        let id = x._id;
+                        console.log(id);
+                        if(id != null && id != undefined){
+                            Cookies.set("user",id,{expires:1/24});
+                        }
+                        router.reload('/login');
+                    })
+                    .catch((err)=>{
+                        console.log(err);
+                    })
                 })
                 .catch((err)=>{
                     console.log(err);
                 })
-            })
-            .catch((err)=>{
+            }
+            catch(err){
                 console.log(err);
-            })
-        }
-        catch(err){
-            console.log(err);
+            }
         }
     }
 
     const [email,setEmail] = useState("");
     const [pass,setPass] = useState("");
+
+
+    const validate = () => {
+        if (email === "") {
+            alert("Enter Email!");
+            return;
+        }
+        if(pass === "")
+        {
+            alert("Enter password!");
+            return;
+        }
+        return true;
+
+    }
+
 
     return (
         <div>

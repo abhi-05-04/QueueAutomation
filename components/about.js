@@ -17,7 +17,7 @@ export default function About() {
                             </div>
                             <div className="col-md-6 col-xs-12">
                                 <h2 className="title1">
-                                    Student Queue System for efficient management
+                                    Virtual Queue System to make it efficient than traditional Queue Method
                                 </h2>
                                 <p>
                                     Students being occupied with their studies and class schedules
@@ -27,9 +27,7 @@ export default function About() {
                                     versatility and comfort to obtain these services without any
                                     trouble. Qwaiting is a specially designed system for the
                                     educational sector that gives students and the staff the
-                                    ability to manage all the activities smoothly, through digital
-                                    signage displays, or self-help kiosks. Schedule your 14-day
-                                    free trial today!
+                                    ability to manage all the activities smoothly.
                                 </p>
                             </div>
                         </div>
@@ -46,18 +44,20 @@ export default function About() {
                             <div className="col-sm-6 text-left col-sm-pull-6">
                                 <div className="clearfix">
                                     <h3 className="title11">
-                                        How Student Queue Management System Work?
+                                        How QueueAutomation Works?
                                     </h3>
                                 </div>
                                 <ul className="checkmark-list">
                                     <li>
-                                        Students can join the queue using their phones through the
-                                        college website or app.
+                                        Students can join the queue using their phones through QR scan.
                                     </li>
                                     <li>
-                                        A token will be generated highlighting all the required
-                                        information like estimated wait time, their unique queue no.
-                                        and students waiting ahead of them. Queue Status can be
+                                        A webpage will be generated highlighting all the required
+                                        parameters(Name, Mobile Number). He/She need fill and submit it. 
+                                    </li>
+                                    <li>
+                                        After that he/she will get redirected to new page where they can see their 
+                                        queue no. and students waiting ahead of them. Queue Status can be
                                         tracked on a real-time basis.
                                     </li>
                                     <li>
@@ -184,7 +184,7 @@ export default function About() {
                                         <img src="/Images/HomePage/step-1.png" alt="step 1" />
                                     </div>
                                     <div className="counter">1</div>
-                                    <p className="step-text">Student will scan the QR Code</p>
+                                    <p className="step-text">Student will scan the QR Code and fill the Details .</p>
                                 </div>
 
                                 <div className="col-md-4 mb-4">
@@ -193,8 +193,7 @@ export default function About() {
                                     </div>
                                     <div className="counter">2</div>
                                     <p className="step-text">
-                                        An SMS will be sent to you and register them as next in the
-                                        line
+                                        An SMS will be sent to you and register them as next in the line
                                     </p>
                                 </div>
 
