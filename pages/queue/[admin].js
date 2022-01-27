@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import 'semantic-ui-css/semantic.min.css'
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
+
 // import { Card } from 'reactstrap';
 import { Card, Button, Grid } from 'semantic-ui-react'
 import QRCode from 'qrcode.react';
@@ -13,6 +14,15 @@ import QRCode from 'qrcode.react';
 export default function Queue({ admin, cook, list, reqURL, date }) {
 
     const router = useRouter();
+
+    const deleteobj= async (id) => {
+        try {
+            await fetch(`http://localhost:3000/api/deleteObj?id=${id}`);
+            window.location.reload()
+        } catch (error) {
+        }
+    }
+
 
     const setDate = async () => {
         const D = new Date();
@@ -26,6 +36,7 @@ export default function Queue({ admin, cook, list, reqURL, date }) {
             console.log("deleted");
         }
     }
+    
 
     const redir = () => {
         router.replace('/');
@@ -69,11 +80,11 @@ export default function Queue({ admin, cook, list, reqURL, date }) {
             description: (
 
                 <Card.Content extra>
-                    <div className='ui two buttons'>
-                        <Button basic color='green' style={{ margin: 3 }}>
+                    <div className=' ui two buttons'>
+                        <Button basic color='green' onClick={() => deleteobj(list[i]._id)} style={{ margin: 3 }}>
                             Approve
                         </Button>
-                        <Button basic color='red' style={{ margin: 3 }}>
+                        <Button basic color='red' onClick={() => deleteobj(list[i]._id)} style={{ margin: 3 }}>
                             Decline
                         </Button>
                     </div>

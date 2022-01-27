@@ -51,6 +51,10 @@ export default function login({token , date}) {
                         if(id != null && id != undefined){
                             Cookies.set("user",id,{expires:1/24});
                         }
+                        else{
+                            alert("Wrong Credentials!")
+                        }
+                        
                         router.reload('/login');
                     })
                     .catch((err)=>{
