@@ -8,6 +8,7 @@ export default async function handler(req,res){
     await db.collection('Queue').insertOne(data)
     .then((result)=>{
         let id = result.insertedId;
+        console.log(id);
         res.send(id);
     }) 
     .catch((err)=>{

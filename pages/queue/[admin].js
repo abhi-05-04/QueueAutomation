@@ -80,13 +80,13 @@ export default function Queue({ admin, cook, list, reqURL, date }) {
             description: (
 
                 <Card.Content extra>
-                    <div className=' ui two buttons'>
+                    <div className='buttons'>
                         <Button basic color='green' onClick={() => deleteobj(list[i]._id)} style={{ margin: 3 }}>
-                            Approve
+                            Next
                         </Button>
-                        <Button basic color='red' onClick={() => deleteobj(list[i]._id)} style={{ margin: 3 }}>
+                        {/* <Button basic color='red' onClick={() => deleteobj(list[i]._id)} style={{ margin: 3 }}>
                             Decline
-                        </Button>
+                        </Button> */}
                     </div>
                 </Card.Content>
 
@@ -116,23 +116,7 @@ export default function Queue({ admin, cook, list, reqURL, date }) {
 
             <div className="card mb-3 container">
                 <div className="row g-0">
-                    {/* <Grid celled> */}
-                    {/* <Grid.Row>
-                <Grid.Column width={9}>
-                    <div className="col-md-10">
-                        <img src="/Images/qr.png" className="img-fluid rounded-start" alt="..."/>
-                    </div>
-                </Grid.Column>
-                <Grid.Column width={7}>
-                <div className="col-md-8">
-                    <div>
-                        <Card.Group items={items} />
-                    </div>
-                    </div>
-                </Grid.Column>
-                </Grid.Row>
-                 */}
-                    {/* </Grid>  */}
+                    
                     <div className="col-md-6">
 
                         <QRCode

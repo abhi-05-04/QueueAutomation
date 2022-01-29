@@ -105,13 +105,16 @@ export default function login({ token, date }) {
             }
         }
         // let map1 = new Map();
+        var ind = 10000;
         for (let i = 0; i < adminList.length; i++) {
             console.log(adminList[i]);
             console.log(queueOfAdmin[i]);
-            if (queueOfAdmin[i].length > 0)
+            if (queueOfAdmin[i].length > 0){
                 map1[adminList[i]._id] = queueOfAdmin[i];
+                ind = ind > i?i:ind;
+            }
         }
-        getQueue('61ebbaa87661805818fc30b0');
+        getQueue(adminList[ind]._id);
 
     };
 
