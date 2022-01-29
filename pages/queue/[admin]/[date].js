@@ -3,18 +3,25 @@ import Nav from '../../../components/Nav'
 import React, { useState ,useEffect } from 'react'
 import { useRouter } from 'next/router';
 import { route } from 'next/dist/server/router';
+import Cookies from 'js-cookie';
 
 
 
-export default function registration({props}) {
+export default function registration({date}) {
     const router = useRouter();
-
+    // const {asPath} = useRouter();
+    let adminL = router.asPath.split('/');
+    adminL = adminL[adminL.length-2];
+    let dateL = date;
+    console.log(dateL,adminL); 
     const setDate = async()=>{
+        dateL = date;
+        adminL = adminL[adminL.length-2];
+
         const D = new Date();
         let d = D.getDate(); 
-        // d = 16;
-        console.log(date+"  "+d);
-        if(d != props.date){
+      
+        if(d != dateL){
             console.log("confilct");
             Cookies.set("date",d,{expires:24/24});
             await fetch(`http://localhost:3000/api/deleteList`);
@@ -34,7 +41,7 @@ export default function registration({props}) {
     const handleClick = async (event)=>{
         event.preventDefault();
         try{
-            await fetch(`http://localhost:3000/api/registerQ?fname=${fname}&lname=${lname}&phone=${ph}&admin=${props.admin}`,{
+            await fetch(`http://localhost:3000/api/registerQ?fname=${fname}&lname=${lname}&phone=${ph}&admin=${adminL}`,{
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -88,12 +95,14 @@ export default function registration({props}) {
 }
 
 
-registration.getInitialProps = (ctx)=>{
-    console.log(ctx.query);
+registration.getInitialProps = ({req,res})=>{
+   
+
     let date = "";
     if(req.cookies.date  != undefined){
         date = req.cookies.date;
     }
 
-    return {props : {admin : ctx.query.admin , date : date}};
+    return {date : date };
 }
+
