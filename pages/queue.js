@@ -30,7 +30,7 @@ export default function Queue({ cno, cList,userInfo ,date }) {
         if(d != date){
             console.log("confilct");
             Cookies.set("date",d,{expires:24/24});
-            await fetch(`http://localhost:3000/api/deleteList`);
+            await fetch(`https://queue-mu.vercel.app//api/deleteList`);
             console.log("deleted");
         }
     }

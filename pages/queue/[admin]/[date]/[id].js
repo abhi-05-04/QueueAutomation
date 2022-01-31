@@ -25,42 +25,50 @@ export default function (props) {
     // // })
 
 
-    return (
-        <div style={{ margin: 30 }}>
-            {
-                props.num != null ?
-                    <div className="container card text-white bg-info mb-3" style={{ maxWidth: 250 }}>
-                        <div className="card-header">Wait</div>
-                        <div className="card-body">
-                            <h5 className="card-title">Your number in Queue {props.num} </h5>
-                            <p className="card-text">
-                                You have sucessfully added yourself to the Queue. Once your number
-                                will come we will notify you by message.But to live track Don't Exit
-                                From this Page otherwise you will not able track you live.
-                            </p>
-                        </div>
-                    </div> :
-                    <div className="container card text-white bg-info mb-3" style={{ maxWidth: 250 }}>
-                        <div className="card-header">You are no more in Queue</div>
-                    </div>
-            }
+    console.log(props.num);
+    try {
+        return (
 
-        </div>
-    );
+            <div style={{ margin: 30 }}>
+                {
+                        <div className="container card text-white bg-info mb-3" style={{ maxWidth: 250 }}>
+                            <div className="card-header">Wait</div>
+                            <div className="card-body">
+                                <h5 className="card-title">Your number in Queue {props.num} </h5>
+                                <p className="card-text">
+                                    You have sucessfully added yourself to the Queue. Once your number
+                                    will come we will notify you by message.But to live track Don't Exit
+                                    From this Page otherwise you will not able track you live.
+                                </p>
+                            </div>
+                        </div> 
+                        // :
+                        // <div className="container card text-white bg-info mb-3" style={{ maxWidth: 250 }}>
+                        //     <div className="card-header">You are no more in Queue</div>
+                        // </div>
+                }
+    
+            </div>
+        );
+    } catch (error) {
+        console.log(error);
+        return (
+            <div>you are not in queue</div>
+        )
+    }
 }
 
 export const getServerSideProps = async ({ req, res }) => {
     let url = req.url.split('/');
 
-    let reqURL = "localhost:3000/";
+    let reqURL = "queue-mu.vercel.app//";
     for (let i = 1; i < url.length; i++)
         reqURL = reqURL + url[i] + '/';
     let adminId = url[url.length - 3];
     let userId = url[url.length - 1]
 
-
-    let getList = await fetch(`http://localhost:3000/api/getList?admin=${adminId}`);
-
+    let getList = await fetch(`https://queue-mu.vercel.app/api/getList?admin=${adminId}`);
+    console.log(getList)
     const response = await getList.json();
     // console.log(response.length);
     var num;
@@ -73,9 +81,9 @@ export const getServerSideProps = async ({ req, res }) => {
             }
         }
     }
+    console.log(adminId,num);
 
     // console.log(userId);
-
     // return { props: { response : response , userId: userId} }
     return { props: { num: num} }
 

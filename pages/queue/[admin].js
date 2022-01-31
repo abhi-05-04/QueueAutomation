@@ -17,7 +17,7 @@ export default function Queue({ admin, cook, list, reqURL, date }) {
 
     const deleteobj= async (id) => {
         try {
-            await fetch(`http://localhost:3000/api/deleteObj?id=${id}`);
+            await fetch(`https://queue-mu.vercel.app//api/deleteObj?id=${id}`);
             window.location.reload()
         } catch (error) {
         }
@@ -32,7 +32,7 @@ export default function Queue({ admin, cook, list, reqURL, date }) {
         if (d != date) {
             console.log("confilct");
             Cookies.set("date", d, { expires: 24 / 24 });
-            await fetch(`http://localhost:3000/api/deleteList`);
+            await fetch(`https://queue-mu.vercel.app//api/deleteList`);
             console.log("deleted");
         }
     }
@@ -146,7 +146,7 @@ export const getServerSideProps = async ({ req, res }) => {
     // console.log(date.getDate());
     let url = req.url.split('/');
 
-    let reqURL = "localhost:3000/";
+    let reqURL = "queue-mu.vercel.app//";
     for (let i = 1; i < url.length; i++)
         reqURL = reqURL + url[i] + '/';
     reqURL = reqURL + date.getDate();
@@ -154,7 +154,7 @@ export const getServerSideProps = async ({ req, res }) => {
     let cook = req.cookies.user;
 
 
-    let getList = await fetch(`http://localhost:3000/api/getList?admin=${adminId}`);
+    let getList = await fetch(`http://queue-mu.vercel.app//api/getList?admin=${adminId}`);
 
     const response = await getList.json();
     let d = "";

@@ -31,7 +31,7 @@ export default function registration({ date }) {
         if (d != dateL) {
             console.log("confilct");
             Cookies.set("date", d, { expires: 24 / 24 });
-            await fetch(`http://localhost:3000/api/deleteList`);
+            await fetch(`https://queue-mu.vercel.app//api/deleteList`);
             console.log("deleted");
         }
     }
@@ -49,7 +49,7 @@ export default function registration({ date }) {
         if (validate()) {
             event.preventDefault();
             try {
-                await fetch(`http://localhost:3000/api/registerQ?fname=${fname}&lname=${lname}&phone=${ph}&admin=${adminL}`, {
+                await fetch(`https://queue-mu.vercel.app//api/registerQ?fname=${fname}&lname=${lname}&phone=${ph}&admin=${adminL}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
