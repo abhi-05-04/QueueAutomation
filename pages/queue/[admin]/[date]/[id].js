@@ -23,10 +23,6 @@ export default function (props) {
     // //         init();
     // //     });
     // // })
-
-
-    console.log(props.num);
-    try {
         return (
 
             <div style={{ margin: 30 }}>
@@ -50,14 +46,7 @@ export default function (props) {
     
             </div>
         );
-    } catch (error) {
-        console.log(error);
-        return (
-            <div>you are not in queue</div>
-        )
     }
-}
-
 export const getServerSideProps = async ({ req, res }) => {
     let url = req.url.split('/');
 

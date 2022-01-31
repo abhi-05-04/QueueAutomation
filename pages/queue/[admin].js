@@ -146,7 +146,7 @@ export const getServerSideProps = async ({ req, res }) => {
     // console.log(date.getDate());
     let url = req.url.split('/');
 
-    let reqURL = "queue-mu.vercel.app/";
+    let reqURL = "https://queue-mu.vercel.app/";
     for (let i = 1; i < url.length; i++)
         reqURL = reqURL + url[i] + '/';
     reqURL = reqURL + date.getDate();
