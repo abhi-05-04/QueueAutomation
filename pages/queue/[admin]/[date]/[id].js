@@ -52,14 +52,14 @@ export default function (props) {
 export const getServerSideProps = async ({ req, res }) => {
     let url = req.url.split('/');
 
-    let reqURL = "localhost:3000/";
+    let reqURL = "queue-mu.vercel.app/";
     for (let i = 1; i < url.length; i++)
         reqURL = reqURL + url[i] + '/';
     let adminId = url[url.length - 3];
     let userId = url[url.length - 1]
 
 
-    let getList = await fetch(`http://localhost:3000/api/getList?admin=${adminId}`);
+    let getList = await fetch(`https://queue-mu.vercel.app/api/getList?admin=${adminId}`);
 
     const response = await getList.json();
     // console.log(response.length);

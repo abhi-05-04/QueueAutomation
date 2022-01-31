@@ -21,7 +21,7 @@ export default function Home({ userInfo, cook, date }) {
     if (d != date) {
       // console.log("confilct");
       Cookies.set("date", d, { expires: 24 / 24 });
-      await fetch(`http://localhost:3000/api/deleteList`);
+      await fetch(`https://queue-mu.vercel.app/api/deleteList`);
       // console.log("deleted");
     }
   }
@@ -60,7 +60,7 @@ export const getServerSideProps = async ({ req, res }) => {
     return { props: { userInfo: "" } }
   }
   else {
-    // await fetch(`http://localhost:3000/api/userInfo?admin=${cook}`, {
+    // await fetch(`https://queue-mu.vercel.app/api/userInfo?admin=${cook}`, {
     //   method: 'GET',
     //   headers: {
     //     'Content-Type': 'application/json',
