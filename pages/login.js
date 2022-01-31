@@ -21,7 +21,7 @@
 //         if(d != date){
 //             console.log("confilct");
 //             Cookies.set("date",d,{expires:24/24});
-//             await fetch(`http://queue-mu.vercel.app/:3000/api/deleteList`);
+//             await fetch(`https://queue-mu.vercel.app/api/deleteList`);
 //             console.log("deleted");
 //         }
 //     }
@@ -36,7 +36,7 @@
 //         if(validate())
 //         {
 //             try{
-//                 await fetch(`http://queue-mu.vercel.app/:3000/api/auth?email=${email}&password=${pass}`,{
+//                 await fetch(`https://queue-mu.vercel.app/api/auth?email=${email}&password=${pass}`,{
 //                     method: 'GET',
 //                     headers: {
 //                         'Content-Type': 'application/json',

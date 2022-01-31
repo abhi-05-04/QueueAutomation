@@ -23,7 +23,7 @@ export default function login({ token, date }) {
             router.replace("/");
         }
         try {
-            await fetch("https://queue-mu.vercel.app//api/getAdminList", {
+            await fetch("https://queue-mu.vercel.app/api/getAdminList", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -79,7 +79,7 @@ export default function login({ token, date }) {
 
             try {
                 await fetch(
-                    `http://queue-mu.vercel.app//api/getList?admin=${adminList[i]._id}`,
+                    `https://queue-mu.vercel.app/api/getList?admin=${adminList[i]._id}`,
                     {
                         method: "GET",
                         headers: {
@@ -189,14 +189,14 @@ export function getServerSideProps({ req, res }) {
 //     // console.log(date.getDate());
 //     let url = req.url.split('/');
 
-//     let reqURL = "queue-mu.vercel.app//";
+//     let reqURL = "queue-mu.vercel.app/";
 //     for(let i=1;i<url.length;i++)
 //         reqURL = reqURL + url[i] + '/';
 //     reqURL = reqURL + date.getDate();
 //     let adminId = url[url.length-1];
 //     let cook = req.cookies.user;
 
-//     let getList = await fetch(`http://queue-mu.vercel.app//api/getList?admin=${adminId}`);
+//     let getList = await fetch(`https://queue-mu.vercel.app/api/getList?admin=${adminId}`);
 
 //     const response = await getList.json();
 //     let d = "";

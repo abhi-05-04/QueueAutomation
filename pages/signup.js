@@ -63,7 +63,7 @@ export default function signup({ token, date }) {
         event.preventDefault();
         if (validate()) {
             try {
-                await fetch(`https://queue-mu.vercel.app//api/newAdmin?fname=${fname}&lname=${lname}&email=${email}&password=${pass}&number=${num}`, {
+                await fetch(`https://queue-mu.vercel.app/api/newAdmin?fname=${fname}&lname=${lname}&email=${email}&password=${pass}&number=${num}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
