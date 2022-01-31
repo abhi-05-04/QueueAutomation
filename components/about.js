@@ -77,14 +77,14 @@ export default function About() {
                             <div className="col-md-8">
                                 <div className="pre-title">Features Highlights</div>
                                 <h2 className="custom-title gray-text mt-0">
-                                    How will Qwaiting benefit the students and staff members?
+                                    How will QueueAutomation benefit the students and staff members?
                                 </h2>
                             </div>
                             <div className="col-md-3"></div>
                         </div>
                         <div className="flex-row space-80">
                             <div className="col-md-6 mb-4">
-                                <div className="flex align-items-center  wrap-mobile-col">
+                                <div className="flex align-items-center   ">
                                     <div className="icon-box-rounded">
                                         <img src="/Images/HomePage/better.svg" alt="better" />
                                     </div>
@@ -98,7 +98,7 @@ export default function About() {
                             {/* <!--end col--> */}
 
                             <div className="col-md-6 mb-4">
-                                <div className="flex align-items-center wrap-mobile-col">
+                                <div className="flex align-items-center  ">
                                     <div className="icon-box-rounded">
                                         <img src="/Images/HomePage/time.svg" alt="time" />
                                     </div>
@@ -112,7 +112,7 @@ export default function About() {
                             {/* <!--end col--> */}
 
                             <div className="col-md-6 mb-4">
-                                <div className="flex align-items-center wrap-mobile-col">
+                                <div className="flex align-items-center  ">
                                     <div className="icon-box-rounded">
                                         <img
                                             src="/Images/HomePage/instruction.svg"
@@ -129,7 +129,7 @@ export default function About() {
                             {/* <!--end col--> */}
 
                             <div className="col-md-6 mb-4">
-                                <div className="flex align-items-center wrap-mobile-col">
+                                <div className="flex align-items-center  ">
                                     <div className="icon-box-rounded">
                                         <img src="/Images/HomePage/social.svg" alt="social" />
                                     </div>
@@ -143,7 +143,7 @@ export default function About() {
                             {/* <!--end col--> */}
 
                             <div className="col-md-6 mb-4">
-                                <div className="flex align-items-center wrap-mobile-col">
+                                <div className="flex align-items-center  ">
                                     <div className="icon-box-rounded">
                                         <img
                                             src="/Images/HomePage/customer-feedback.svg"
@@ -160,7 +160,7 @@ export default function About() {
                             {/* <!--end col--> */}
 
                             <div className="col-md-6 mb-4">
-                                <div className="flex align-items-center wrap-mobile-col">
+                                <div className="flex align-items-center  ">
                                     <div className="icon-box-rounded">
                                         <img src="/Images/HomePage/maintain.svg" alt="maintain" />
                                     </div>
@@ -193,7 +193,7 @@ export default function About() {
                                     </div>
                                     <div className="counter">2</div>
                                     <p className="step-text">
-                                        An SMS will be sent to you and register them as next in the line
+                                        He/She is able to track the exact number in the virtual Queue.
                                     </p>
                                 </div>
 
