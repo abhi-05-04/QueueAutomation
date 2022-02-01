@@ -140,7 +140,7 @@ export default function signup({ token, date }) {
             return;
         }
         
-        if (num.search('^[0-9]$') === -1) {
+        if (num.search('^[0-9]+$') === -1) {
             alert("Enter Valid phone Number!")
             return;
         }

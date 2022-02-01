@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import { useState, useEffect } from 'react'
 export default function (props) {
 
-    // const [num , setNum] = useState("");
+    // const [num, setNum] = useState(props.num);
     // const init = async () => {
     //     var index;
     //     for (index = 1; index < props.response.length; index++) {
@@ -18,35 +18,35 @@ export default function (props) {
     //     init();
     // }, []);
 
-    // // useEffect(() => {
-    // //     window.addEventListener('load', (event) => {
-    // //         init();
-    // //     });
-    // // })
-        return (
+    useEffect(() => {
+        if (props.num == -1) {
+            location.reload();
+        }
+    })
+    return (
 
-            <div style={{ margin: 30 }}>
-                {
-                        <div className="container card text-white bg-info mb-3" style={{ maxWidth: 250 }}>
-                            <div className="card-header">Wait</div>
-                            <div className="card-body">
-                                <h5 className="card-title">Your number in Queue {props.num} </h5>
-                                <p className="card-text">
-                                    You have sucessfully added yourself to the Queue. Once your number
-                                    will come we will notify you by message.But to live track Don't Exit
-                                    From this Page otherwise you will not able track you live.
-                                </p>
-                            </div>
-                        </div> 
-                        // :
-                        // <div className="container card text-white bg-info mb-3" style={{ maxWidth: 250 }}>
-                        //     <div className="card-header">You are no more in Queue</div>
-                        // </div>
-                }
-    
-            </div>
-        );
-    }
+        <div style={{ margin: 30 }}>
+            {
+                <div className="container card text-white bg-info mb-3" style={{ maxWidth: 250 }}>
+                    <div className="card-header">Wait</div>
+                    <div className="card-body">
+                        <h5 className="card-title">Your number in Queue {props.num} </h5>
+                        <p className="card-text">
+                            You have sucessfully added yourself to the Queue. Once your number
+                            will come we will notify you by message.But to live track Don't Exit
+                            From this Page otherwise you will not able track you live.
+                        </p>
+                    </div>
+                </div>
+                // :
+                // <div className="container card text-white bg-info mb-3" style={{ maxWidth: 250 }}>
+                //     <div className="card-header">You are no more in Queue</div>
+                // </div>
+            }
+
+        </div>
+    );
+}
 export const getServerSideProps = async ({ req, res }) => {
     let url = req.url.split('/');
 
@@ -61,21 +61,21 @@ export const getServerSideProps = async ({ req, res }) => {
 
     const response = await getList.json();
     // console.log(response.length);
-    var num;
+    var num = -1;
     // console.log(response);
 
     if (response.some(id => id._id === userId)) {
-        for (var index = 1; index < response.length; index++) {
+        for (var index = 0; index < response.length; index++) {
             if (response[index]._id == userId) {
                 num = index + 1
             }
         }
     }
-    console.log(adminId,num);
+    console.log(adminId, num);
 
     // console.log(userId);
     // return { props: { response : response , userId: userId} }
-    return { props: { num: num} }
+    return { props: { num: num } }
 
 
 }

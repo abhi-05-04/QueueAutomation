@@ -111,7 +111,7 @@ export default function registration({ date }) {
             alert("Enter correct mobile number!");
             return;
         }
-        if (ph.search('^[0-9]$') === -1) {
+        if (ph.search('^[0-9]+$') === -1) {
             alert("Enter Valid phone Number!")
             return;
         }
