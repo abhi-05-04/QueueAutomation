@@ -99,8 +99,16 @@ export default function signup({ token, date }) {
             alert("Enter First Name!")
             return;
         }
-        if (lname === "") {
+        if (fname.search('^[A-Za-z]+$') === -1) {
+            alert("First Name is not valid!")
+            return;
+        }
+        if (lname === "")  {
             alert("Enter Last Name!")
+            return;
+        }
+        if (lname.search('^[A-Za-z]+$') === -1) {
+            alert("Last Name is not valid!")
             return;
         }
         if (email === "") {
@@ -126,9 +134,14 @@ export default function signup({ token, date }) {
             alert("Enter Phone Number!");
             return;
         }
-        if(num.length!=10)
+        if(num.length!=10 )
         {
             alert("Enter Valid phone Number!");
+            return;
+        }
+        
+        if (num.search('^[0-9]$') === -1) {
+            alert("Enter Valid phone Number!")
             return;
         }
         return true;

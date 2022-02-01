@@ -67,10 +67,30 @@ export default function registration({ token, date }) {
             alert("Enter First Name!")
             return;
         }
-        if (lname === "") {
+        if (fname.search('^[A-Za-z]+$') === -1) {
+            alert("First Name is not valid!")
+            return;
+        }
+        if (lname === "")  {
             alert("Enter Last Name!")
             return;
         }
+        if (lname.search('^[A-Za-z]+$') === -1) {
+            alert("Last Name is not valid!")
+            return;
+        }
+        // if (ph === "") {
+        //     alert("Enter mobile no!");
+        //     return;
+        // }
+        // if (ph.length != 10) {
+        //     alert("Enter correct mobile number!");
+        //     return;
+        // }
+        // if (ph.search('^[0-9]$') === -1) {
+        //     alert("Enter Valid phone Number!")
+        //     return;
+        // }
         return true;
 
     }

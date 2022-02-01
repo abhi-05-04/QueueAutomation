@@ -18,11 +18,15 @@ export default function Home({ userInfo, cook, date }) {
     let d = D.getDate();
     // d = 16;
     // console.log(date + "  " + d);
-    if (d != date) {
-      // console.log("confilct");
-      Cookies.set("date", d, { expires: 24 / 24 });
-      await fetch(`https://queue-mu.vercel.app/api/deleteList`);
-      // console.log("deleted");
+    try {
+      if (d != date) {
+        // console.log("confilct");
+        Cookies.set("date", d, { expires: 24 / 24 });
+        await fetch(`https://queue-mu.vercel.app/api/deleteList`);
+        // console.log("deleted");
+      }
+    } catch (error) {
+      console.log(error);
     }
   }
   useEffect(() => {
