@@ -23,29 +23,35 @@ export default function (props) {
             location.reload();
         }
     })
-    return (
+    if (props.num == -1) {
+        return (
+            <div>Wait...</div>
+        )
+    } else {
+        return (
 
-        <div style={{ margin: 30 }}>
-            {
-                <div className="container card text-white bg-info mb-3" style={{ maxWidth: 250 }}>
-                    <div className="card-header">Wait</div>
-                    <div className="card-body">
-                        <h5 className="card-title">Your number in Queue {props.num} </h5>
-                        <p className="card-text">
-                            You have sucessfully added yourself to the Queue. Once your number
-                            will come we will notify you by message.But to live track Don't Exit
-                            From this Page otherwise you will not able track you live.
-                        </p>
+            <div style={{ margin: 30 }}>
+                {
+                    <div className="container card text-white bg-info mb-3" style={{ maxWidth: 250 }}>
+                        <div className="card-header">Wait</div>
+                        <div className="card-body">
+                            <h5 className="card-title">Your number in Queue {props.num} </h5>
+                            <p className="card-text">
+                                You have sucessfully added yourself to the Queue. Once your number
+                                will come we will notify you by message.But to live track Don't Exit
+                                From this Page otherwise you will not able track you live.
+                            </p>
+                        </div>
                     </div>
-                </div>
-                // :
-                // <div className="container card text-white bg-info mb-3" style={{ maxWidth: 250 }}>
-                //     <div className="card-header">You are no more in Queue</div>
-                // </div>
-            }
+                    // :
+                    // <div className="container card text-white bg-info mb-3" style={{ maxWidth: 250 }}>
+                    //     <div className="card-header">You are no more in Queue</div>
+                    // </div>
+                }
 
-        </div>
-    );
+            </div>
+        );
+    }
 }
 export const getServerSideProps = async ({ req, res }) => {
     let url = req.url.split('/');
