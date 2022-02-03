@@ -2,24 +2,32 @@ import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
+const styling = {
+    backgroundImage: "url('/Images/HomePage/bg.jpg')",
+    // margin: "50px 0px",
+    // backgroundSize: "100%",
+    backgroundRepeat: "no-repeat",
+}
+
 export default function About() {
     return (
-        <div>
-            <div id="home" className="blue-theme feature-single-body">
-                <section className="space-50">
+        <div >
+            <div id="home" className="blue-theme feature-single-body" >
+                <section className="space-50 " style={styling} >
                     <div className="container">
                         <div className="row">
                             <div className="col-md-6">
                                 <img
-                                    src="/Images/HomePage/queue-waiting-system.png"
+                                    src="/Images/HomePage/qr.png"
                                     alt="queue waiting system"
                                 />
                             </div>
                             <div className="col-md-6 col-xs-12">
-                                <h2 className="title1">
+                                <h2 className="title1 text-light">
                                     Virtual Queue System to make it efficient than traditional Queue Method
                                 </h2>
-                                <p>
+                                <p className="text-light">
+                                    
                                     Students being occupied with their studies and class schedules
                                     often find it challenging to waste time waiting in a queue
                                     outside administrative offices, libraries, cafeterias, or fee
