@@ -41,7 +41,7 @@ export default function About() {
                         </div>
                     </div>
                 </section>
-                <section className="space-100  light-blue">
+                <section className="space-100  ">
                     <div className="container">
                         <div className="row">
                             <div className="col-sm-6 text-right col-sm-push-6">
@@ -79,7 +79,7 @@ export default function About() {
                     </div>
                 </section>
 
-                <section className="space-100">
+                <section className="space-100 ">
                     <div className="container">
                         <div className="flex-row space-80 justify-content-between">
                             <div className="col-md-8">
