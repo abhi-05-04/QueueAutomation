@@ -17,7 +17,7 @@ export default function signup({ token, date }) {
         if (d != date) {
             console.log("confilct");
             Cookies.set("date", d, { expires: 24 / 24 });
-            await fetch(`/api/deleteList`);
+            // await fetch(`/api/deleteList`);
             console.log("deleted");
         }
     }

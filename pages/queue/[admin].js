@@ -14,7 +14,6 @@ import QRCode from 'qrcode.react';
 export default function Queue({ admin, cook, list, reqURL, date }) {
 
     const router = useRouter();
-
     const deleteobj= async (id) => {
         try {
             await fetch(`/api/deleteObj?id=${id}`);
@@ -32,7 +31,7 @@ export default function Queue({ admin, cook, list, reqURL, date }) {
         if (d != date) {
             console.log("confilct");
             Cookies.set("date", d, { expires: 24 / 24 });
-            await fetch(`/api/deleteList`);
+            // await fetch(`/api/deleteList`);
             console.log("deleted");
         }
     }
@@ -128,6 +127,13 @@ export default function Queue({ admin, cook, list, reqURL, date }) {
                             value={reqURL}
                         />
                         <Button content='Download' onClick={downloadQRCode} primary />
+                        <Button content='Delete List' 
+                            onClick={async() => {
+                                await fetch(`/api/deleteList?admin=${admin}`);
+                                window.location.reload()
+                            }} 
+                            negative 
+                            />
                     </div>
                     <div className="col-md-4">
                         <div style={{ marginTop: 2 }} >

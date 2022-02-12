@@ -3,9 +3,11 @@ import { connectToDatabase } from "../../lib/mongodb";
 
 export default async function handler(req,res){
     const { db } = await connectToDatabase()
-    const data  = req.query
     
-    await db.collection('Queue').deleteMany({})
+    const data  = req.query
+    console.log(data.admin);
+    
+    await db.collection('Queue').deleteMany(data)
     .then(()=>{
         res.json({message : "deleted"});
     }) 
