@@ -26,7 +26,7 @@ export default function login({ token, date }) {
             router.replace("/");
         }
         try {
-            await fetch(`${process.env.DOMAIN}/api/getAdminList`, {
+            await fetch(`/api/getAdminList`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -82,7 +82,7 @@ export default function login({ token, date }) {
 
             try {
                 await fetch(
-                    `${process.env.DOMAIN}/api/getList?admin=${adminList[i]._id}`,
+                    `/api/getList?admin=${adminList[i]._id}`,
                     {
                         method: "GET",
                         headers: {
@@ -117,7 +117,7 @@ export default function login({ token, date }) {
                 ind = ind > i?i:ind;
             }
         }
-        getQueue(adminList[ind]._id);
+        // getQueue(adminList[ind]._id);
 
     };
 

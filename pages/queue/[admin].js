@@ -17,7 +17,7 @@ export default function Queue({ admin, cook, list, reqURL, date }) {
 
     const deleteobj= async (id) => {
         try {
-            await fetch(`${process.env.DOMAIN}/api/deleteObj?id=${id}`);
+            await fetch(`/api/deleteObj?id=${id}`);
             window.location.reload()
         } catch (error) {
         }
@@ -32,7 +32,7 @@ export default function Queue({ admin, cook, list, reqURL, date }) {
         if (d != date) {
             console.log("confilct");
             Cookies.set("date", d, { expires: 24 / 24 });
-            await fetch(`${process.env.DOMAIN}/api/deleteList`);
+            await fetch(`/api/deleteList`);
             console.log("deleted");
         }
     }
@@ -45,7 +45,7 @@ export default function Queue({ admin, cook, list, reqURL, date }) {
 
     const sendMessage = async () => {
 
-        const res = await fetch('/api/sendMessage', {
+        const res = await fetch(`/api/sendMessage`  , {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -146,7 +146,7 @@ export const getServerSideProps = async ({ req, res }) => {
     // console.log(date.getDate());
     let url = req.url.split('/');
 
-    let reqURL = `${process.env.DOMAIN}/`;
+    let reqURL = `/`;
     for (let i = 1; i < url.length; i++)
         reqURL = reqURL + url[i] + '/';
     reqURL = reqURL + date.getDate();

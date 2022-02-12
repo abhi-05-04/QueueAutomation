@@ -21,7 +21,7 @@ export default function login({token , date}) {
         if(d != date){
             console.log("confilct");
             Cookies.set("date",d,{expires:24/24});
-            await fetch(`${process.env.DOMAIN}/api/deleteList`);
+            await fetch(`/api/deleteList`);
             console.log("deleted");
         }
     }
@@ -36,7 +36,7 @@ export default function login({token , date}) {
         if(validate())
         {
             try{
-                await fetch(`${process.env.DOMAIN}/api/auth?email=${email}&password=${pass}`,{
+                await fetch(`/api/auth?email=${email}&password=${pass}`,{
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

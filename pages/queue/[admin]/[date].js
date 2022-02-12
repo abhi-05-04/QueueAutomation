@@ -31,7 +31,7 @@ export default function registration({ date }) {
         if (d != dateL) {
             console.log("confilct");
             Cookies.set("date", d, { expires: 24 / 24 });
-            await fetch(`${process.env.DOMAIN}/api/deleteList`);
+            await fetch(`/api/deleteList`);
             console.log("deleted");
         }
     }
@@ -49,7 +49,7 @@ export default function registration({ date }) {
         if (validate()) {
             event.preventDefault();
             try {
-                await fetch(`${process.env.DOMAIN}/api/registerQ?fname=${fname}&lname=${lname}&phone=${ph}&admin=${adminL}`, {
+                await fetch(`/api/registerQ?fname=${fname}&lname=${lname}&phone=${ph}&admin=${adminL}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

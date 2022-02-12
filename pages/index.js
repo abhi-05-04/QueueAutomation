@@ -22,7 +22,7 @@ export default function Home({ userInfo, cook, date }) {
       if (d != date) {
         // console.log("confilct");
         Cookies.set("date", d, { expires: 24 / 24 });
-        await fetch(`${process.env.DOMAIN}/api/deleteList`);
+        await fetch(`/api/deleteList`);
         // console.log("deleted");
       }
     } catch (error) {
