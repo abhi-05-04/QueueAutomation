@@ -63,7 +63,7 @@ export const getServerSideProps = async ({ req, res }) => {
     let userId = url[url.length - 1]
 
 
-    let getList = await fetch(`https://queue-mu.vercel.app/api/getList?admin=${adminId}`);
+    let getList = await fetch(`${process.env.DOMAIN}/api/getList?admin=${adminId}`);
 
     const response = await getList.json();
     // console.log(response.length);

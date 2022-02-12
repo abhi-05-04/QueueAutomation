@@ -6,6 +6,9 @@ import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import About from "../components/about";
 import { Card, Button, Grid } from "semantic-ui-react";
+
+
+
 export default function login({ token, date }) {
     const [items, setItems] = useState([]);
     const [queueItems, setQueueItems] = useState([]);
@@ -23,7 +26,7 @@ export default function login({ token, date }) {
             router.replace("/");
         }
         try {
-            await fetch("https://queue-mu.vercel.app/api/getAdminList", {
+            await fetch(`${process.env.DOMAIN}/api/getAdminList`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -79,7 +82,7 @@ export default function login({ token, date }) {
 
             try {
                 await fetch(
-                    `https://queue-mu.vercel.app/api/getList?admin=${adminList[i]._id}`,
+                    `${process.env.DOMAIN}/api/getList?admin=${adminList[i]._id}`,
                     {
                         method: "GET",
                         headers: {

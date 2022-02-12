@@ -17,7 +17,7 @@ export default function signup({ token, date }) {
         if (d != date) {
             console.log("confilct");
             Cookies.set("date", d, { expires: 24 / 24 });
-            await fetch(`https://queue-mu.vercel.app/api/deleteList`);
+            await fetch(`${process.env.DOMAIN}/api/deleteList`);
             console.log("deleted");
         }
     }
@@ -63,7 +63,7 @@ export default function signup({ token, date }) {
         event.preventDefault();
         if (validate()) {
             try {
-                await fetch(`https://queue-mu.vercel.app/api/newAdmin?fname=${fname}&lname=${lname}&email=${email}&password=${pass}&number=${num}`, {
+                await fetch(`${process.env.DOMAIN}/api/newAdmin?fname=${fname}&lname=${lname}&email=${email}&password=${pass}&number=${num}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
