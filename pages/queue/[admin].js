@@ -128,9 +128,13 @@ export default function Queue({ admin, cook, list, reqURL, date }) {
                         />
                         <Button content='Download' onClick={downloadQRCode} primary />
                         <Button content='Delete List' 
+                            
                             onClick={async() => {
-                                await fetch(`/api/deleteList?admin=${admin}`);
-                                window.location.reload()
+                                if(confirm("This Admin will be permanatly deleted !"))
+                                {
+                                    await fetch(`/api/deleteList?admin=${admin}`);
+                                    window.location.reload()
+                                }
                             }} 
                             negative 
                             />

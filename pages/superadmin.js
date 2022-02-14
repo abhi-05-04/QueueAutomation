@@ -14,6 +14,19 @@ export default function login({ token, date }) {
     const [queueItems, setQueueItems] = useState([]);
     // const [queueMap, setQueueMap] = useState([])
     const router = useRouter();
+
+    const deleteobj= async (id) => {
+        if(confirm("This Admin will be permanatly deleted !"))
+        {
+            try {
+                await fetch(`/api/deleteList?admin=${id}`);
+                await fetch(`/api/deleteAdmin?id=${id}`);
+                window.location.reload()
+            } catch (error) {
+            }
+        }
+    }
+    
     console.log(process.env.SUPERADMIN);
     let adminList = [],
         queueOfAdmin = [];
@@ -51,9 +64,14 @@ export default function login({ token, date }) {
                                         meta: `${adminList[i].number}`,
                                         description: (
                                             <Card.Content extra>
-                                                <Button basic color='black' onClick={() => getQueue(adminList[i]._id)} style={{ margin: 3 }}>
-                                                    Show Queue
-                                                </Button>
+                                                <div className='buttons'>
+                                                    <Button basic color='black' onClick={() => getQueue(adminList[i]._id)} style={{ margin: 3 }}>
+                                                        Show Queue
+                                                    </Button>
+                                                    <Button basic color='red' onClick={() => deleteobj(adminList[i]._id)} style={{ margin: 3 }}>
+                                                        Remove this Admin
+                                                    </Button>
+                                                </div>
                                             </Card.Content>
                                         ),
                                         fluid: true
@@ -112,9 +130,9 @@ export default function login({ token, date }) {
         for (let i = 0; i < adminList.length; i++) {
             console.log(adminList[i]);
             console.log(queueOfAdmin[i]);
-            if (queueOfAdmin[i].length > 0){
+            if (queueOfAdmin[i].length > 0) {
                 map1[adminList[i]._id] = queueOfAdmin[i];
-                ind = ind > i?i:ind;
+                ind = ind > i ? i : ind;
             }
         }
         // getQueue(adminList[ind]._id);
@@ -154,9 +172,9 @@ export default function login({ token, date }) {
     return (
         <div>
             <SuperNav cook={token} />
-            <div className="card mb-3 container" style={{ padding:5 , margin: 10 }}>
+            <div className="card mb-3 container" style={{ padding: 5, margin: 10 }}>
                 <div className="row g-0">
-                    <div className="col-md-6" style={{ padding: 10,  }} >
+                    <div className="col-md-6" style={{ padding: 10, }} >
                         <div className="h3">Admins</div>
                         <div style={{ marginTop: 2 }}>
                             <Card.Group items={items} />
