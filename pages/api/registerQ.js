@@ -20,6 +20,10 @@ export default async function handler(req,res){
                 console.log(err);
             })
         }
+        else
+        {
+            res.send(-1);
+        }
     })
 
    
