@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router';
 import { route } from 'next/dist/server/router';
 import Cookies from 'js-cookie';
+import { AlertPage } from 'twilio/lib/rest/monitor/v1/alert';
 
 
 
@@ -61,11 +62,19 @@ export default function registration({ date }) {
                             .then(
                                 (id) => {
                                     // alert("==>" + id);
-                                    redir(id);
+                                    if(id == -1)
+                                    {
+                                        alert("Mobile number already in Queue");
+                                    }
+                                    else
+                                    {
+                                        redir(id);
+                                    }
                                 }
                             ).catch(
                                 (err) => {
                                     console.log(err);
+                                    console.log("Unique1");
                                 }
                             )
 
@@ -73,6 +82,7 @@ export default function registration({ date }) {
                 ).catch(
                     (err) => {
                         console.log(err);
+                        console.log("Unique2");
                     }
                 )
                 // alert
@@ -81,6 +91,7 @@ export default function registration({ date }) {
             }
             catch (err) {
                 console.log(err);
+                console.log("Unique3");
             }
         }
 

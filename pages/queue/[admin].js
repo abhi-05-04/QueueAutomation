@@ -128,9 +128,13 @@ export default function Queue({ admin, cook, list, reqURL, date }) {
                         />
                         <Button content='Download' onClick={downloadQRCode} primary />
                         <Button content='Delete List' 
+                            
                             onClick={async() => {
-                                await fetch(`/api/deleteList?admin=${admin}`);
-                                window.location.reload()
+                                if(confirm("This Admin will be permanatly deleted !"))
+                                {
+                                    await fetch(`/api/deleteList?admin=${admin}`);
+                                    window.location.reload()
+                                }
                             }} 
                             negative 
                             />
@@ -152,7 +156,7 @@ export const getServerSideProps = async ({ req, res }) => {
     // console.log(date.getDate());
     let url = req.url.split('/');
 
-    let reqURL = `/`;
+    let reqURL = `${process.env.DOMAIN}/`;
     for (let i = 1; i < url.length; i++)
         reqURL = reqURL + url[i] + '/';
     reqURL = reqURL + date.getDate();
