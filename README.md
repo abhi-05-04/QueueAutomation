@@ -33,3 +33,7 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 # QueueAutomation
+![HomeScreen_photo_1](https://github.com/abhi05-04/QueueAutomation/blob/main/public/Images/readme/about1.png)
+![HomeScreen_photo_2](https://github.com/abhi05-04/QueueAutomation/blob/main/public/Images/readme/about2.png)
+![HomeScreen_photo_3](https://github.com/abhi05-04/QueueAutomation/blob/main/public/Images/readme/About3.png)
+![HomeScreen_photo_4](https://github.com/abhi05-04/QueueAutomation/blob/main/public/Images/readme/about4.png)
