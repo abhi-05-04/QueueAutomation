@@ -49,7 +49,7 @@ export default function Queue({ admin, cook, list, reqURL, date }) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ phone: list[1].phone, message: 'Be ready you are next' }),
+            body: JSON.stringify({ phone: list[2].phone, message: 'Be ready you are next' }),
         });
         const apiResponse = await res.json();
         console.log(apiResponse);
@@ -62,7 +62,7 @@ export default function Queue({ admin, cook, list, reqURL, date }) {
     useEffect(async () => {
         console.log(list.length)
         setDate();
-        if (list.length >= 2)
+        if (list.length >= 3)
             sendMessage();
         // const res = await fetch(`/api/sendMessage`);
         // console.log(res);
